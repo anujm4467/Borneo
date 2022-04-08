@@ -7,6 +7,8 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
 
+  app.enableCors();
+
   const options = new DocumentBuilder()
     .setTitle('NestJS API Gateway')
     .setDescription(

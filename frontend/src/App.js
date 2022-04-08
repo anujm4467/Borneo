@@ -1,24 +1,48 @@
-import logo from './logo.svg';
 import './App.css';
+import React, { Component } from 'react'
+import axios from 'axios';
 
-function App() {
-  return (
-    <div className="App">
-      <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.."/>
+class App extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      response: []
+    }
+  }
+
+  handleChange = async (event) => {
+    await this.callTheApi(event.target.value)
+  }
+
+  callTheApi = async (search) => {
+    console.log(search)
+    const response = await axios.get('http://localhost:3000/api/searchText?search=' + search);
+    this.setState({ response: response.data });
+  }
+
+
+
+
+  render() {
+    return (
+      <div className="App" >
+
+        <input type="text" id="myInput" onChange={async (event) => { await this.handleChange(event) }} placeholder="Search for names.." />
 
         <ul id="myUL">
-          <li><a href="#">Adele</a></li>
-          <li><a href="#">Agnes</a></li>
-
-          <li><a href="#">Billy</a></li>
-          <li><a href="#">Bob</a></li>
-
-          <li><a href="#">Calvin</a></li>
-          <li><a href="#">Christina</a></li>
-          <li><a href="#">Cindy</a></li>
+          {this.state.response.map((item, index) => {
+            return (
+              <li key={index}>
+                <a href={item._source.publicURL}>{item._source.name}</a>
+              </li>
+            )
+          }
+          )}
         </ul>
-    </div>
-  );
+      </div>
+    );
+  }
 }
 
 export default App;
