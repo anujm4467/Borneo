@@ -15,3 +15,4 @@
 6. go to microservice and run npm i --save
 7. run the microservice with npm run start:dev
 8. update the .env files too
+9. open the http://localhost:3000/api/v1 to see the api access
