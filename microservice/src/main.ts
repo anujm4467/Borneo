@@ -15,7 +15,9 @@ async function bootstrap() {
       },
     },
   });
+  app.init();
   app.startAllMicroservices();
   Logger.log('Microservice started');
 }
+
 bootstrap();

@@ -9,7 +9,11 @@ export class AppService {
     @Inject(Constants.LOGGER_SERVICE_NAME) private client: ClientProxy,
   ) {}
 
-  getHello(search: string): Observable<string> {
-    return this.client.emit('log', search);
+  searchText(search: string): Observable<any> {
+    return this.client.send('search', search);
+  }
+
+  sync(): Observable<any> {
+    return this.client.emit('sync', true);
   }
 }
